@@ -72,6 +72,7 @@ class MyClipper extends CustomClipper<Path>{
   }
 
   @override
+ // MIGUE
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
