@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget{
             ClipPath(
               clipper: MyClipper(),
               child: Container(
+                padding: EdgeInsets.only(left: 40, top: 50, right: 20),
                 height: 350,
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -51,6 +52,69 @@ class HomeScreen extends StatelessWidget{
                     image: AssetImage("assets/images/virus.png"),
                   ),
                 ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: SvgPicture.asset("assets/icons/menu.svg"),
+                    ),
+                    SizedBox(height: 20),
+                    Expanded(
+                        child: Stack(
+                          children: <Widget>[
+                            SvgPicture.asset("assets/icons/coronadr.svg",
+                              width: 230,
+                              fit: BoxFit.fitWidth,
+                              alignment: Alignment.topCenter,
+                            ),
+                            Positioned(
+                                top: 27,
+                                left: 200,
+                                child: Text(
+                                  "Quedate \nen casa",
+                                  style: kHeadingTextStyle.copyWith(
+                                    color: Colors.white,
+                              ),
+                            ),
+                            ),
+                            Container(),
+                          ],
+                        ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              height: 60, width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: Color(0xFFE5E5E5),
+                ),
+              ),
+              child: Row(
+                children: <Widget>[SvgPicture.asset("assets/icons/maps-and-flags.svg"),
+                  Expanded(child: DropdownButton(
+                    isExpanded: true,
+                    underline: SizedBox(),
+                    icon: SvgPicture.asset("assets/icons/dropdown.svg"),
+                    value: "Chile",
+                    items: [
+                    'Chile',
+                    'Argentina'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                    );
+                    }).toList(), onChanged: (value){},
+                  ),
+                  ),
+                ],
               ),
             )
           ],
