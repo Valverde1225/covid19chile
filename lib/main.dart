@@ -278,10 +278,4 @@ class Covid {
   }
 }
 
-
-
-
-
-
-
-
+// Se adapto lo realizado para obtener la fecha de la API en conjunto con el diseño
