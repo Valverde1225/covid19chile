@@ -1,4 +1,6 @@
 import 'package:covid19chile/constant.dart';
+import 'package:covid19chile/widgets/info_screen.dart';
+import 'package:covid19chile/widgets/my_header.dart';
 //import 'package:covid19chile/widgets/counter.dart';
 //import 'package:covid19chile/widgets/my_header.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';
+
+import 'widgets/counter.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,7 +32,7 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             body1: TextStyle(color: kBodyTextColor),
           )),
-      home: HomeScreen(),
+      home: InfoScreen(),
     );
   }
 }
@@ -45,58 +49,9 @@ class HomeScreen extends StatelessWidget{
     return Scaffold(
       body: Column(
         children: <Widget>[
-          ClipPath(
-            clipper: MyClipper(),
-            child: Container(
-              padding: EdgeInsets.only(left: 40, top: 50, right: 20),
-              height: 325,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xFF3383CD),
-                      Color(0xFF11249F),
-                    ]
-                ),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/virus.png"),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: SvgPicture.asset("assets/icons/menu.svg"),
-                  ),
-                  SizedBox(height: 20),
-                  Expanded(
-                    child: Stack(
-                      children: <Widget>[
-                        SvgPicture.asset("assets/icons/coronadr.svg",
-                          width: 230,
-                          fit: BoxFit.fitWidth,
-                          alignment: Alignment.topCenter,
-                        ),
-                        Positioned(
-                          top: 27,
-                          left: 200,
-                          child: Text(
-                            "Quedate \nen Casa",
-                            style: kHeadingTextStyle.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Container(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          MyHeader(image: "assets/icons/Drcorona.svg",
+            textTop: "Quedate",
+            textBottom: "en casa",
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -195,6 +150,7 @@ class HomeScreen extends StatelessWidget{
 
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 // Extracción de Widget para simplicar codigo
                 Counter(
@@ -210,8 +166,10 @@ class HomeScreen extends StatelessWidget{
               ],
             ),
           ),
-            SizedBox(height: 20),
-            Row(
+          SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal:20),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
               Text(
@@ -225,6 +183,7 @@ class HomeScreen extends StatelessWidget{
                   ),
               ),
               ],
+            ),
             ),
           Container(
             margin: EdgeInsets.only(top: 20),
@@ -246,7 +205,8 @@ class HomeScreen extends StatelessWidget{
                 child: WebView(
                   initialUrl: Uri.dataFromString('<html><body><div class="flourish-embed flourish-chart" data-src="visualisation/1563538" data-url="https://public.flourish.studio/visualisation/1563538/embed"><script src="https://public.flourish.studio/resources/embed.js"></script></div></body></html>', mimeType: 'text/html').toString(),
                   javascriptMode: JavascriptMode.unrestricted,
-                )),
+                ),
+            ),
           ),
         ],
       ),
@@ -254,73 +214,7 @@ class HomeScreen extends StatelessWidget{
   }
 }
 
-class Counter extends StatelessWidget {
-  final int number;
-  final Color color;
-  final String title;
 
-  const Counter({
-    Key key,
-    this.number,
-    this.color,
-    this.title,
-  }) : super(key: key);
-
-  // Extracción de Widget para simplicar codigo
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(6),
-          height: 25,
-          width: 25,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color.withOpacity(.26),
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-              border: Border.all(
-                color: color,
-                width: 2,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 10),
-        Text("$number",
-          style: TextStyle(
-            fontSize: 40,
-            color: color,
-        ),
-        ),
-        Text(title, style: kSubTextStyle),
-      ],
-    );
-  }
-}
-
-class MyClipper extends CustomClipper<Path>{
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height - 80);
-    path.quadraticBezierTo(size.width/2, size.height, size.width, size.height - 80);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-
-}
 
 // Consumiendo API COVID 19 CHILE
 Future<Covid> getCovid() async {
