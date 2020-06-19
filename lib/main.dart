@@ -5,10 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
+// Import para realizar API REST
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 void main() => runApp(MyApp());
 
+
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,11 +32,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class HomeScreen extends StatelessWidget{
+
+  final Future<Covid> covid;
+  HomeScreen({Key key, this.covid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body: Column(
           children: <Widget>[
@@ -116,7 +126,7 @@ class HomeScreen extends StatelessWidget{
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
     );
@@ -142,7 +152,33 @@ class MyClipper extends CustomClipper<Path>{
 
 }
 
+// Consumiendo API COVID 19 CHILE
+Future<Covid> getCovid() async {
+  String url = 'https://chile-coronapi.herokuapp.com/api/v3/latest/nation';
+  final response =
+  await http.get(url, headers: {"Accept": "application/json"});
 
+  if (response.statusCode == 200) {
+    return Covid.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load post');
+  }
+}
+
+class Covid {
+  final int confirmed;
+  final int deaths;
+  final String day;
+
+  Covid({this.confirmed, this.deaths, this.day});
+
+  factory Covid.fromJson(Map<String, dynamic> json) {
+    return Covid(
+        confirmed: json['confirmed'],
+        deaths: json['deaths'],
+        day: json['day']);
+  }
+}
 
 
 
