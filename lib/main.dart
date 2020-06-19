@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Covid-19 Chile',
       theme: ThemeData(
-        scaffoldBackgroundColor: kBackgroundColor,
-        fontFamily: "Poppins",
-        textTheme: TextTheme(
-          body1: TextStyle(color: kBodyTextColor),
-        )),
+          scaffoldBackgroundColor: kBackgroundColor,
+          fontFamily: "Poppins",
+          textTheme: TextTheme(
+            body1: TextStyle(color: kBodyTextColor),
+          )),
       home: HomeScreen(),
     );
   }
@@ -37,178 +37,198 @@ class HomeScreen extends StatelessWidget{
   final Future<Covid> covid;
   HomeScreen({Key key, this.covid}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-        body: Column(
-          children: <Widget>[
-            ClipPath(
-              clipper: MyClipper(),
-              child: Container(
-                padding: EdgeInsets.only(left: 40, top: 50, right: 20),
-                height: 350,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
+      body: Column(
+        children: <Widget>[
+          ClipPath(
+            clipper: MyClipper(),
+            child: Container(
+              padding: EdgeInsets.only(left: 40, top: 50, right: 20),
+              height: 350,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
                       Color(0xFF3383CD),
                       Color(0xFF11249F),
                     ]
-                  ),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/virus.png"),
-                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: SvgPicture.asset("assets/icons/menu.svg"),
-                    ),
-                    SizedBox(height: 20),
-                    Expanded(
-                        child: Stack(
-                          children: <Widget>[
-                            SvgPicture.asset("assets/icons/coronadr.svg",
-                              width: 230,
-                              fit: BoxFit.fitWidth,
-                              alignment: Alignment.topCenter,
-                            ),
-                            Positioned(
-                                top: 27,
-                                left: 200,
-                                child: Text(
-                                  "Quedate \nen Casa",
-                                  style: kHeadingTextStyle.copyWith(
-                                    color: Colors.white,
-                              ),
-                            ),
-                            ),
-                            Container(),
-                          ],
+                image: DecorationImage(
+                  image: AssetImage("assets/images/virus.png"),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: SvgPicture.asset("assets/icons/menu.svg"),
+                  ),
+                  SizedBox(height: 20),
+                  Expanded(
+                    child: Stack(
+                      children: <Widget>[
+                        SvgPicture.asset("assets/icons/coronadr.svg",
+                          width: 230,
+                          fit: BoxFit.fitWidth,
+                          alignment: Alignment.topCenter,
                         ),
+                        Positioned(
+                          top: 27,
+                          left: 200,
+                          child: Text(
+                            "Quedate \nen Casa",
+                            style: kHeadingTextStyle.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Container(),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              height: 60, width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                border: Border.all(color: Color(0xFFE5E5E5),
-                ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            height: 60, width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(color: Color(0xFFE5E5E5),
               ),
-              child: Row(
-                children: <Widget>[SvgPicture.asset("assets/icons/maps-and-flags.svg"),
-                  Expanded(child: DropdownButton(
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    icon: SvgPicture.asset("assets/icons/dropdown.svg"),
-                    value: "Chile",
-                    items: [
+            ),
+            child: Row(
+              children: <Widget>[SvgPicture.asset("assets/icons/maps-and-flags.svg"),
+                Expanded(child: DropdownButton(
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  icon: SvgPicture.asset("assets/icons/dropdown.svg"),
+                  value: "Chile",
+                  items: [
                     'Chile',
                     'Argentina'
-                    ].map<DropdownMenuItem<String>>((String value) {
+                  ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
+                      value: value,
+                      child: Text(value),
                     );
-                    }).toList(), 
-                    onChanged: (value){},
-                  ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal:20),
-              child: Column(
-                children: <Widget>[
-                  Row(children: <Widget>[
-                    RichText(
-                    text: TextSpan(
-                      children: [
-                      TextSpan(
-                        text: "Case Update\n",
-                        style:kTitleTextstyle
-                  ),
-                  TextSpan(
-                    text: "Datos actualizados al 18 de Mayo",
-                    style: TextStyle(
-                      color: kTextLightColor,
-
-                    )
-                  )
-                      ],
-                   ),
-                  ),
-                  Spacer(),
-                  Text("Ver Detalles",
-                  style: TextStyle(
-                    color: kPrimaryColor,
-                    fontWeight: FontWeight.w600,
-                    ),
-                   ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0,4),
-                      blurRadius: 30,
-                      color: kShadowColor,
-                    ),
-                  ],
-                
+                  }).toList(),
+                  onChanged: (value){},
                 ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal:20),
+            child: FutureBuilder<Covid>(
+              future: getCovid(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Center(
+                    child: Column(
                       children: <Widget>[
-                        Container(
-                          height: 25,
-                          width: 25,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: kInfectedColor.withOpacity(.26),  
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.transparent,
-                              border: Border.all(
-                                color: kInfectedColor,
-                                width: 2,
-                              ),
+                        Row(children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: "Casos Actualizados\n",
+                                    style:kTitleTextstyle
+                                ),
+                                TextSpan(
+                                    text: ("Fecha:  ${snapshot.data.day}"),
+                                    style: TextStyle(
+                                      color: kTextLightColor,
+
+                                    )
+                                )
+                              ],
                             ),
                           ),
-                        )
-                     ],
+                          Spacer(),
+                          Text("Ver Detalles",
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                        ),
+                        Text(" \n Confirmados: ${snapshot.data.confirmed}"),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Text(" Muertes: ${snapshot.data.deaths}"),
+                      ],
                     ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return CircularProgressIndicator();
+              },
+            ),
+          ),
+
+          SizedBox(height: 20),
+          Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0,4),
+                  blurRadius: 30,
+                  color: kShadowColor,
+                ),
+              ],
+
+            ),
+            child: Row(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: kInfectedColor.withOpacity(.26),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: kInfectedColor,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }
 
 class MyClipper extends CustomClipper<Path>{
@@ -257,16 +277,6 @@ class Covid {
         day: json['day']);
   }
 }
-
-//hola
-
-
-
-
-
-
-
-
 
 
 
