@@ -180,6 +180,10 @@ class Covid {
   }
 }
 
+class covid1{
+
+}
+
 
 
 
