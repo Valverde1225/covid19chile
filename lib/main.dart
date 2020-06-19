@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget{
             clipper: MyClipper(),
             child: Container(
               padding: EdgeInsets.only(left: 40, top: 50, right: 20),
-              height: 350,
+              height: 325,
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -152,7 +153,6 @@ class HomeScreen extends StatelessWidget{
                                     text: ("Fecha:  ${snapshot.data.day}"),
                                     style: TextStyle(
                                       color: kTextLightColor,
-
                                     )
                                 )
                               ],
@@ -167,11 +167,7 @@ class HomeScreen extends StatelessWidget{
                           ),
                         ],
                         ),
-                        Text(" \n Confirmados: ${snapshot.data.confirmed}"),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(" Muertes: ${snapshot.data.deaths}"),
+
                       ],
                     ),
                   );
@@ -185,7 +181,7 @@ class HomeScreen extends StatelessWidget{
 
           SizedBox(height: 20),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -200,33 +196,109 @@ class HomeScreen extends StatelessWidget{
             ),
             child: Row(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: 25,
-                      width: 25,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: kInfectedColor.withOpacity(.26),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: kInfectedColor,
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                // Extracción de Widget para simplicar codigo
+                Counter(
+                  color: kInfectedColor,
+                  number: 1045,
+                  title: "Contagiados",
+                ),
+                Counter(
+                  color: kDeathColor,
+                  number: 87,
+                  title: "Muertes",
                 ),
               ],
             ),
           ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+              Text(
+                  "Mapa del virus",
+                  style: kTitleTextstyle,
+              ),
+              Text("Más detalles",
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+              ),
+              ],
+            ),
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            padding: EdgeInsets.all(20),
+            height: 178,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(0,10),
+                    blurRadius: 30,
+                    color: kShadowColor,
+                ),
+              ],
+          ),
+            child: Container(
+                child: WebView(
+                  initialUrl: Uri.dataFromString('<html><body><div class="flourish-embed flourish-chart" data-src="visualisation/1563538" data-url="https://public.flourish.studio/visualisation/1563538/embed"><script src="https://public.flourish.studio/resources/embed.js"></script></div></body></html>', mimeType: 'text/html').toString(),
+                  javascriptMode: JavascriptMode.unrestricted,
+                )),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class Counter extends StatelessWidget {
+  final int number;
+  final Color color;
+  final String title;
+
+  const Counter({
+    Key key,
+    this.number,
+    this.color,
+    this.title,
+  }) : super(key: key);
+
+  // Extracción de Widget para simplicar codigo
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(6),
+          height: 25,
+          width: 25,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color.withOpacity(.26),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+              border: Border.all(
+                color: color,
+                width: 2,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 10),
+        Text("$number",
+          style: TextStyle(
+            fontSize: 40,
+            color: color,
+        ),
+        ),
+        Text(title, style: kSubTextStyle),
+      ],
     );
   }
 }
