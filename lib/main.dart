@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget{
                                 top: 27,
                                 left: 200,
                                 child: Text(
-                                  "Quedate \nen casa",
+                                  "Quedate \nen Casa",
                                   style: kHeadingTextStyle.copyWith(
                                     color: Colors.white,
                               ),
@@ -111,16 +111,94 @@ class HomeScreen extends StatelessWidget{
                     value: value,
                     child: Text(value),
                     );
-                    }).toList(), onChanged: (value){},
+                    }).toList(), 
+                    onChanged: (value){},
                   ),
                   ),
                 ],
               ),
-            )
-          ],
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal:20),
+              child: Column(
+                children: <Widget>[
+                  Row(children: <Widget>[
+                    RichText(
+                    text: TextSpan(
+                      children: [
+                      TextSpan(
+                        text: "Case Update\n",
+                        style:kTitleTextstyle
+                  ),
+                  TextSpan(
+                    text: "Datos actualizados al 18 de Mayo",
+                    style: TextStyle(
+                      color: kTextLightColor,
+
+                    )
+                  )
+                      ],
+                   ),
+                  ),
+                  Spacer(),
+                  Text("Ver Detalles",
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.w600,
+                    ),
+                   ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0,4),
+                      blurRadius: 30,
+                      color: kShadowColor,
+                    ),
+                  ],
+                
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          height: 25,
+                          width: 25,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: kInfectedColor.withOpacity(.26),  
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.transparent,
+                              border: Border.all(
+                                color: kInfectedColor,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                        )
+                     ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-    );
-  }
+      ],
+    ),
+  );
+}
 }
 
 class MyClipper extends CustomClipper<Path>{
