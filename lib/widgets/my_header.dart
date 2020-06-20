@@ -74,13 +74,13 @@ class _MyHeaderState extends State<MyHeader> {
                     top: (widget.offset < 0) ? 0 : widget.offset,
                     child: SvgPicture.asset(
                       widget.image,
-                      width: 230,
+                      width: 210,
                       fit: BoxFit.fitWidth,
                       alignment: Alignment.topCenter,
                     ),
                   ),
                   Positioned(
-                    top: 20 - widget.offset / 2,
+                    top: 25 - widget.offset / 2,
                     left: 150,
                     child: Text(
                       "${widget.textTop} \n${widget.textBottom}",

@@ -37,12 +37,14 @@ class _InfoScreenState extends State<InfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[MyHeader(
           image: "assets/icons/coronadr.svg",
           textTop: "Conocer sobre",
           textBottom: "Covid-19",
+          offset: offset,
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -54,7 +56,9 @@ class _InfoScreenState extends State<InfoScreen> {
                   style: kTitleTextstyle
               ),
               SizedBox(height: 20),
-              Row(
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   SymptomCard(
@@ -73,11 +77,12 @@ class _InfoScreenState extends State<InfoScreen> {
                   ),
                 ],
               ),
+          ),
               SizedBox(height: 20),
               Text("Prevencion", style: kTitleTextstyle),
               SizedBox(height: 20),
               PreventCard(
-                text: "Aweonao ponte la mascarilla.",
+                text: ".",
                 image: "assets/images/wear_mask.png",
                 title: "Ponte mascarilla",
               ),
@@ -119,7 +124,8 @@ class PreventCard extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
               color: Colors.white,
-              boxShadow: [BoxShadow(
+              boxShadow: [
+                BoxShadow(
                 offset: Offset(0, 8),
                 blurRadius: 24,
                 color: kShadowColor,
@@ -131,8 +137,7 @@ class PreventCard extends StatelessWidget {
             Positioned(
               left: 130,
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 20, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 height: 136,
                 width: MediaQuery.of(context).size.width - 170,
                 child: Column(
@@ -145,10 +150,15 @@ class PreventCard extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    Text(text,
-                    style: TextStyle(
-                        fontSize: 12,
-                    ),
+                    Expanded(
+                      child: Text(
+                        text,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                     Align(
                       alignment: Alignment.topRight,
@@ -180,22 +190,24 @@ class SymptomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      width: 120,
+        margin: EdgeInsets.only(left: 7, right: 7),
+      width: 110,
       height: 155,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white70,
         boxShadow: [
-          isActive ?
-          BoxShadow(
-            offset: Offset(0, 10),
-            blurRadius: 20,
-            color: kActiveShadowColor,
-        )
-        : BoxShadow(
-    offset: Offset(0,3),
-    blurRadius: 6,
-    color: kShadowColor,
-          ),
+          isActive
+              ? BoxShadow(
+                  offset: Offset(0, 10),
+                  blurRadius: 10,
+                  color: kActiveShadowColor,
+              )
+              : BoxShadow(
+                  offset: Offset(0,10),
+                  blurRadius: 100,
+                  color: kShadowColor,
+               ),
         ],
       ),
       child: Column(
