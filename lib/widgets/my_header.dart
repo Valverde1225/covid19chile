@@ -52,7 +52,19 @@ class _MyHeaderState extends State<MyHeader> {
                   ),
                 );
               },
-              child: SvgPicture.asset("assets/icons/menu.svg"),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context){
+                        return InfoScreen();
+                        },
+                    ),
+                  );
+                  },
+                  child: SvgPicture.asset("assets/icons/menu.svg"),
+              ),
             ),
             SizedBox(height: 20),
             Expanded(
