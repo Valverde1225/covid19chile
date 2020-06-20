@@ -19,8 +19,6 @@ void main() => runApp(MyApp());
 
 
 class MyApp extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,26 +30,52 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             body1: TextStyle(color: kBodyTextColor),
           )),
-      home: InfoScreen(),
+      home: HomeScreen(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget{
-
+class HomeScreen extends StatefulWidget {
   final Future<Covid> covid;
   HomeScreen({Key key, this.covid}) : super(key: key);
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  final controller = ScrollController();
+  double offset = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(onScroll);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  void onScroll() {
+    setState(() {
+      offset = (controller.hasClients) ? controller.offset : 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Column(
-        children: <Widget>[
+      body: SingleChildScrollView(
+        controller: controller,
+        child: Column(
+          children: <Widget>[
           MyHeader(image: "assets/icons/Drcorona.svg",
             textTop: "Quedate",
             textBottom: "en casa",
+            offset: offset,
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -188,7 +212,7 @@ class HomeScreen extends StatelessWidget{
           Container(
             margin: EdgeInsets.only(top: 20),
             padding: EdgeInsets.all(20),
-            height: 178,
+            height: 390,
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -198,6 +222,7 @@ class HomeScreen extends StatelessWidget{
                     offset: Offset(0,10),
                     blurRadius: 30,
                     color: kShadowColor,
+
                 ),
               ],
           ),
@@ -210,10 +235,10 @@ class HomeScreen extends StatelessWidget{
           ),
         ],
       ),
+      ),
     );
   }
 }
-
 
 
 // Consumiendo API COVID 19 CHILE
