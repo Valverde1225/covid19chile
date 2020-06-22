@@ -1,5 +1,6 @@
 import 'package:covid19chile/constant.dart';
-import 'package:covid19chile/widgets/info_screen.dart';
+import 'package:covid19chile/main.dart';
+import 'package:covid19chile/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -43,28 +44,15 @@ class _MyHeaderState extends State<MyHeader> {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return InfoScreen();
-                    },
-                  ),
-                );
+                if( MaterialPageRoute(builder: (context) => InfoScreen()) != null){
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => InfoScreen(),),);
+                }
+                else if( MaterialPageRoute(builder: (context) => HomeScreen()) != null){
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen(),),);
+
+                }
               },
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context){
-                        return InfoScreen();
-                        },
-                    ),
-                  );
-                  },
                   child: SvgPicture.asset("assets/icons/menu.svg"),
-              ),
             ),
             SizedBox(height: 20),
             Expanded(

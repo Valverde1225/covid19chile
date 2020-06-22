@@ -1,8 +1,7 @@
 import 'package:covid19chile/constant.dart';
-import 'package:covid19chile/widgets/info_screen.dart';
+import 'package:covid19chile/info_screen.dart';
 import 'package:covid19chile/widgets/my_header.dart';
 //import 'package:covid19chile/widgets/counter.dart';
-//import 'package:covid19chile/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -197,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
               Text(
-                  "Mapa del virus",
+                  "Evolución del virus",
                   style: kTitleTextstyle,
               ),
               Text("Más detalles",
