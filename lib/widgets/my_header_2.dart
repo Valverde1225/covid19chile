@@ -4,12 +4,12 @@ import 'package:covid19chile/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MyHeader extends StatefulWidget {
+class MyHeader2 extends StatefulWidget {
   final String image;
   final String textTop;
   final String textBottom;
   final double offset;
-  const MyHeader(
+  const MyHeader2(
       {Key key, this.image, this.textTop, this.textBottom, this.offset})
       : super(key: key);
 
@@ -17,7 +17,7 @@ class MyHeader extends StatefulWidget {
   _MyHeaderState createState() => _MyHeaderState();
 }
 
-class _MyHeaderState extends State<MyHeader> {
+class _MyHeaderState extends State<MyHeader2> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -44,16 +44,16 @@ class _MyHeaderState extends State<MyHeader> {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pop(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return InfoScreen();
+                      return HomeScreen();
                     },
                   ),
                 );
               },
-                child: SvgPicture.asset("assets/icons/menu.svg"),
+              child: SvgPicture.asset("assets/icons/menu.svg"),
             ),
             SizedBox(height: 20),
             Expanded(

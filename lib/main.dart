@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             body1: TextStyle(color: kBodyTextColor),
           )),
-      home: HomeScreen(),
+        home: HomeScreen(),
+
     );
   }
 }
