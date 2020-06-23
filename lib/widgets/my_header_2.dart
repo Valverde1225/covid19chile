@@ -31,12 +31,12 @@ class _MyHeaderState extends State<MyHeader2> {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Color(0xFF3383CD),
-              Color(0xFF11249F),
+              Color.fromRGBO(255, 157, 49, 1),
+              Color.fromRGBO(255, 168, 82, 0.8),
             ],
           ),
           image: DecorationImage(
-            image: AssetImage("assets/images/virus.png"),
+            image: AssetImage("assets/images/virus2.png"),
           ),
         ),
         child: Column(
@@ -69,12 +69,16 @@ class _MyHeaderState extends State<MyHeader2> {
                     ),
                   ),
                   Positioned(
-                    top: 25 - widget.offset / 2,
-                    left: 150,
+                    top: 27 - widget.offset / 2,
+                    left: 162,
+                    child: Center(
                     child: Text(
                       "${widget.textTop} \n${widget.textBottom}",
                       style: kHeadingTextStyle.copyWith(
                         color: Colors.white,
+                        fontSize: 23,
+                      ),
+                        textAlign: TextAlign.center
                       ),
                     ),
                   ),

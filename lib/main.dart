@@ -1,6 +1,7 @@
 import 'package:covid19chile/constant.dart';
 import 'package:covid19chile/info_screen.dart';
 import 'package:covid19chile/widgets/my_header.dart';
+import 'package:flutter/cupertino.dart';
 //import 'package:covid19chile/widgets/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'datos_api.dart';
 import 'widgets/counter.dart';
 
 void main() => runApp(MyApp());
@@ -73,8 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: <Widget>[
           MyHeader(image: "assets/icons/Drcorona.svg",
-            textTop: "Quedate",
-            textBottom: "en casa",
+            textTop: "Quédate en",
+            textBottom: "casa",
             offset: offset,
           ),
           Container(
@@ -113,49 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal:20),
-            child: FutureBuilder<Covid>(
-              future: getCovid(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Center(
-                    child: Column(
-                      children: <Widget>[
-                        Row(children: <Widget>[
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                    text: "Casos Actualizados\n",
-                                    style:kTitleTextstyle
-                                ),
-                                TextSpan(
-                                    text: ("Fecha:  ${snapshot.data.day}"),
-                                    style: TextStyle(
-                                      color: kTextLightColor,
-                                    )
-                                )
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Text("Ver Detalles",
-                            style: TextStyle(
-                              color: kPrimaryColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                        ),
-
-                      ],
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
-                return CircularProgressIndicator();
-              },
-            ),
+            child: DatosApi1(),
           ),
 
           SizedBox(height: 20),
@@ -173,22 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
 
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                // Extracción de Widget para simplicar codigo
-                Counter(
-                  color: kInfectedColor,
-                  number: 1045,
-                  title: "Contagiados",
-                ),
-                Counter(
-                  color: kDeathColor,
-                  number: 87,
-                  title: "Muertes",
-                ),
-              ],
-            ),
+            child: DatosApi2(),
+
           ),
           SizedBox(height: 20),
             Container(
@@ -233,6 +179,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
             ),
           ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.all(20),
+              height: 390,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0,10),
+                    blurRadius: 30,
+                    color: kShadowColor,
+
+                  ),
+                ],
+              ),
+              child: Container(
+                child: WebView(
+                  initialUrl: Uri.dataFromString('<html><body>'
+                      '</body></html>', mimeType: 'text/html').toString(),
+                  javascriptMode: JavascriptMode.unrestricted,
+                ),
+            ),
+            ),
         ],
       ),
       ),
@@ -240,33 +211,3 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
-// Consumiendo API COVID 19 CHILE
-Future<Covid> getCovid() async {
-  String url = 'https://chile-coronapi.herokuapp.com/api/v3/latest/nation';
-  final response =
-  await http.get(url, headers: {"Accept": "application/json"});
-
-  if (response.statusCode == 200) {
-    return Covid.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to load post');
-  }
-}
-
-class Covid {
-  final int confirmed;
-  final int deaths;
-  final String day;
-
-  Covid({this.confirmed, this.deaths, this.day});
-
-  factory Covid.fromJson(Map<String, dynamic> json) {
-    return Covid(
-        confirmed: json['confirmed'],
-        deaths: json['deaths'],
-        day: json['day']);
-  }
-}
-
-// Se adapto lo realizado para obtener la fecha de la API en conjunto con el diseño

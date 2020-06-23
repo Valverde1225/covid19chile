@@ -52,7 +52,7 @@ class _InfoScreenState extends State<InfoScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                  "Sintomas",
+                  "Síntomas",
                   style: kTitleTextstyle
               ),
               SizedBox(height: 20),
@@ -79,16 +79,16 @@ class _InfoScreenState extends State<InfoScreen> {
               ),
           ),
               SizedBox(height: 20),
-              Text("Prevencion", style: kTitleTextstyle),
+              Text("Prevención", style: kTitleTextstyle),
               SizedBox(height: 20),
               PreventCard(
                 text: ".",
-                image: "assets/images/wear_mask.png",
+                image: "assets/images/wear_mask2.png",
                 title: "Ponte mascarilla",
               ),
               PreventCard(
                 text: "Aweonao ponte la mascarilla.",
-                image: "assets/images/wash_hands.png",
+                image: "assets/images/wash_hands2.png",
                 title: "Lava tus manos",
               ),
               SizedBox(height: 50),
@@ -116,7 +116,7 @@ class PreventCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: SizedBox(
-        height: 156,
+        height: 130,
         child: Stack(
           alignment:  Alignment.centerLeft,
           children: <Widget>[Container(

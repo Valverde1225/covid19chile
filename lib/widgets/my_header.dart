@@ -1,6 +1,7 @@
 import 'package:covid19chile/constant.dart';
 import 'package:covid19chile/main.dart';
 import 'package:covid19chile/info_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -31,12 +32,12 @@ class _MyHeaderState extends State<MyHeader> {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Color(0xFF3383CD),
-              Color(0xFF11249F),
+              Color.fromRGBO(255, 157, 49, 1),
+              Color.fromRGBO(255, 168, 82, 0.8),
             ],
           ),
           image: DecorationImage(
-            image: AssetImage("assets/images/virus.png"),
+            image: AssetImage("assets/images/virus2.png"),
           ),
         ),
         child: Column(
@@ -69,13 +70,17 @@ class _MyHeaderState extends State<MyHeader> {
                     ),
                   ),
                   Positioned(
-                    top: 25 - widget.offset / 2,
-                    left: 150,
+                    top: 35 - widget.offset / 2,
+                    left: 170,
+                    child: Center(
                     child: Text(
                       "${widget.textTop} \n${widget.textBottom}",
                       style: kHeadingTextStyle.copyWith(
                         color: Colors.white,
+                        fontSize: 23,
                       ),
+                        textAlign: TextAlign.center
+                    ),
                     ),
                   ),
                   Container(), // I dont know why it can't work without container
