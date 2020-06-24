@@ -41,7 +41,7 @@ class _InfoScreenState extends State<InfoScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[MyHeader2(
-          image: "assets/icons/coronadr.svg",
+          image: "assets/icons/coronadr2.svg",
           textTop: "Conocer sobre",
           textBottom: "Covid-19",
           offset: offset,
@@ -55,8 +55,9 @@ class _InfoScreenState extends State<InfoScreen> {
                   "Síntomas",
                   style: kTitleTextstyle
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
           SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: 5, top: 5),
             scrollDirection: Axis.horizontal,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +65,6 @@ class _InfoScreenState extends State<InfoScreen> {
                   SymptomCard(
                     image: "assets/images/caugh.png",
                     title: "Tos",
-                    isActive: true,
                   ),
                   SymptomCard(
                     image: "assets/images/headache.png",
@@ -78,20 +78,20 @@ class _InfoScreenState extends State<InfoScreen> {
                 ],
               ),
           ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               Text("Prevención", style: kTitleTextstyle),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               PreventCard(
-                text: ".",
+                text: "Antes de salir a cualquier parte, recuerda ponerte una mascarilla para evitar contagios.",
                 image: "assets/images/wear_mask2.png",
                 title: "Ponte mascarilla",
               ),
               PreventCard(
-                text: "Aweonao ponte la mascarilla.",
+                text: "Recuerda en todo momento lavar tus manos con jabón o gel antibacterial, ya sea antes salir o al llegar a tu hogar.",
                 image: "assets/images/wash_hands2.png",
                 title: "Lava tus manos",
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
             ],
           ),
         )
@@ -137,7 +137,7 @@ class PreventCard extends StatelessWidget {
             Positioned(
               left: 130,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 height: 136,
                 width: MediaQuery.of(context).size.width - 170,
                 child: Column(

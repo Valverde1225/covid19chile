@@ -179,6 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
             ),
           ),
+           /*
             Container(
               margin: EdgeInsets.only(top: 20),
               padding: EdgeInsets.all(20),
@@ -204,6 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
             ),
             ),
+            */
         ],
       ),
       ),
